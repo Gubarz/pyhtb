@@ -4,22 +4,29 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyhtb"
-version = "0.1.0"
+version = "0.1.1"
 description = "Unofficial Hack The Box Python SDK"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
     "httpx>=0.28.1",
     "attrs>=26.1.0",
+    "click>=8.0.0",
+    "rich>=13.0.0",
 ]
+
 authors = [
-    { name = "Hack The Box Community" }
+    { name = "Gubarz" }
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: The Unlicense (Unlicense)",
     "Operating System :: OS Independent",
 ]
+
+[project.scripts]
+yahtbcli = "pyhtb.cli:main"
+
 
 [tool.setuptools.packages.find]
 where = ["."]

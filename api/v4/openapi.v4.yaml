@@ -7332,7 +7332,7 @@ components:
   responses:
     AccessOvpnfileVpnId0Response:
       content:
-        text/plain:
+        application/octet-stream:
           schema:
             $ref: '#/components/schemas/OpenVpn'
       description: Returns open_vpn file

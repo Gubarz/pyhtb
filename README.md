@@ -115,6 +115,100 @@ The SDK is compiled from official and community-maintained reverse-engineered Op
 
 ---
 
+## CLI Tool (Proof of Concept)
+
+`pyhtb` ships with an experimental command-line interface that wraps the SDK into a quick-fire workflow tool. After installing the package, the `yahtbcli` command is available globally.
+
+### Authentication
+
+```bash
+# Store your HTB App Token (generates from app.hackthebox.com → Settings → App Tokens)
+yahtbcli auth set
+
+# Or pass it inline
+yahtbcli auth set --token eyJ...
+
+# Verify your credentials
+yahtbcli auth status
+
+# You can also export the token as an environment variable
+export HTB_TOKEN="eyJ..."
+```
+
+### Machines
+
+```bash
+# List active machines
+yahtbcli machine list
+
+# List retired machines, filtered by difficulty
+yahtbcli machine list --retired --difficulty hard --os linux
+
+# Show detailed info for a machine (by name or ID)
+yahtbcli machine info Checkpoint
+
+# Start a machine and wait for IP assignment
+yahtbcli machine start Checkpoint
+
+# Check your active machine
+yahtbcli machine active
+
+# Submit a flag
+yahtbcli machine own Checkpoint <flag>
+
+# Stop or reset the active machine
+yahtbcli machine stop
+yahtbcli machine reset
+```
+
+### Challenges
+
+```bash
+# List challenges, optionally filtered by category
+yahtbcli challenge list --category Web --search void
+
+# Show challenge details (docker status, ports, etc.)
+yahtbcli challenge info spookifier
+
+# Start/stop a Docker container (by name or ID)
+yahtbcli challenge start spookifier
+yahtbcli challenge stop spookifier
+
+# Submit a flag
+yahtbcli challenge own spookifier <flag>
+```
+
+### VPN
+
+```bash
+# Check active VPN connections
+yahtbcli vpn status
+
+# List available VPN servers
+yahtbcli vpn servers --pool labs
+
+# Switch to a different VPN server
+yahtbcli vpn switch 113
+
+# Download an .ovpn config file
+yahtbcli vpn download 113 -o lab.ovpn
+yahtbcli vpn download 113 --tcp
+```
+
+### Search & Profile
+
+```bash
+# Global search across machines and challenges
+yahtbcli search void
+
+# Display your authenticated profile
+yahtbcli whoami
+```
+
+> **Note**: The CLI is a proof-of-concept companion to the SDK. It covers the most common workflows but does not expose every API endpoint. Use the SDK directly for full coverage.
+
+---
+
 ## Code Regeneration
 
 The SDK contains a build pipeline to automatically compile clients from raw OpenAPI YAML specs. To regenerate the submodules after modifying any specification, execute:
@@ -124,3 +218,9 @@ The SDK contains a build pipeline to automatically compile clients from raw Open
 ```
 
 This requires `openapi-python-client` to be installed in your active Python environment.
+
+---
+
+## License
+
+This project is released under the [Unlicense](LICENSE) — dedicated to the public domain. See the [LICENSE](LICENSE) file for details.
