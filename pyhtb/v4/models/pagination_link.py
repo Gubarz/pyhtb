@@ -1,0 +1,111 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar, cast
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+T = TypeVar("T", bound="PaginationLink")
+
+
+@_attrs_define
+class PaginationLink:
+    """Schema definition for Pagination Link
+
+    Attributes:
+        active (bool | Unset):  Example: True.
+        label (str | Unset):  Example: 1.
+        page (int | None | Unset):  Example: 1.
+        url (None | str | Unset):  Example: https://labs.hackthebox.com/api/v4/prolab/1/reviews?page=1.
+    """
+
+    active: bool | Unset = UNSET
+    label: str | Unset = UNSET
+    page: int | None | Unset = UNSET
+    url: None | str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        active = self.active
+
+        label = self.label
+
+        page: int | None | Unset
+        if isinstance(self.page, Unset):
+            page = UNSET
+        else:
+            page = self.page
+
+        url: None | str | Unset
+        if isinstance(self.url, Unset):
+            url = UNSET
+        else:
+            url = self.url
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update({})
+        if active is not UNSET:
+            field_dict["active"] = active
+        if label is not UNSET:
+            field_dict["label"] = label
+        if page is not UNSET:
+            field_dict["page"] = page
+        if url is not UNSET:
+            field_dict["url"] = url
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
+        active = d.pop("active", UNSET)
+
+        label = d.pop("label", UNSET)
+
+        def _parse_page(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        page = _parse_page(d.pop("page", UNSET))
+
+        def _parse_url(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        url = _parse_url(d.pop("url", UNSET))
+
+        pagination_link = cls(
+            active=active,
+            label=label,
+            page=page,
+            url=url,
+        )
+
+        pagination_link.additional_properties = d
+        return pagination_link
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

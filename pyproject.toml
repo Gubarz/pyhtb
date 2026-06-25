@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyhtb"
+version = "0.1.0"
+description = "Unofficial Hack The Box Python SDK"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "httpx>=0.28.1",
+    "attrs>=26.1.0",
+]
+authors = [
+    { name = "Hack The Box Community" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: The Unlicense (Unlicense)",
+    "Operating System :: OS Independent",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pyhtb*"]

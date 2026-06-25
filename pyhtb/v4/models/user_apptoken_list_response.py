@@ -1,0 +1,85 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.user_apptoken_list_item import UserApptokenListItem
+
+
+T = TypeVar("T", bound="UserApptokenListResponse")
+
+
+@_attrs_define
+class UserApptokenListResponse:
+    """
+    Attributes:
+        tokens (list[UserApptokenListItem] | Unset):
+    """
+
+    tokens: list[UserApptokenListItem] | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        tokens: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.tokens, Unset):
+            tokens = []
+            for componentsschemas_user_apptoken_list_items_item_data in self.tokens:
+                componentsschemas_user_apptoken_list_items_item = (
+                    componentsschemas_user_apptoken_list_items_item_data.to_dict()
+                )
+                tokens.append(componentsschemas_user_apptoken_list_items_item)
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update({})
+        if tokens is not UNSET:
+            field_dict["tokens"] = tokens
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.user_apptoken_list_item import UserApptokenListItem
+
+        d = dict(src_dict)
+        _tokens = d.pop("tokens", UNSET)
+        tokens: list[UserApptokenListItem] | Unset = UNSET
+        if _tokens is not UNSET:
+            tokens = []
+            for componentsschemas_user_apptoken_list_items_item_data in _tokens:
+                componentsschemas_user_apptoken_list_items_item = (
+                    UserApptokenListItem.from_dict(
+                        componentsschemas_user_apptoken_list_items_item_data
+                    )
+                )
+
+                tokens.append(componentsschemas_user_apptoken_list_items_item)
+
+        user_apptoken_list_response = cls(
+            tokens=tokens,
+        )
+
+        user_apptoken_list_response.additional_properties = d
+        return user_apptoken_list_response
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties
