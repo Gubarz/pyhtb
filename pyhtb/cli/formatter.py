@@ -1,9 +1,11 @@
-from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
-from rich.theme import Theme
+import json
+from typing import Any, Dict, List, Union
+
 from rich import box
-from typing import Any, List, Dict, Union
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich.theme import Theme
 
 # Define a premium color theme for HTB terminal
 HTB_THEME = Theme({
@@ -96,7 +98,6 @@ def print_api_error(action: str, detailed) -> None:
     if content.startswith("<!DOCTYPE html") or "html" in content.lower()[:100]:
         print_error(f"Failed to {action}: Received HTTP {status} (HTML Error Page). The resource might not exist or the action is invalid.")
     else:
-        import json
         try:
             data = json.loads(content)
             msg = data.get("message", content)

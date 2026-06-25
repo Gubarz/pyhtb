@@ -1,6 +1,7 @@
 import pkgutil
 import importlib
 import functools
+import warnings
 from typing import Optional
 import httpx
 
@@ -43,7 +44,12 @@ def _bind_api_methods(client_instance, api_package):
             continue
         try:
             mod = importlib.import_module(module_name)
-        except Exception:
+        except ImportError as exc:
+            warnings.warn(
+                f"Could not load endpoint module {module_name}: {exc}",
+                RuntimeWarning,
+                stacklevel=2,
+            )
             continue
         
         endpoint_name = module_name.split(".")[-1]

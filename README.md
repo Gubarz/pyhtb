@@ -5,19 +5,21 @@
 [![License](https://img.shields.io/github/license/Gubarz/pyhtb.svg)](LICENSE)
 [![Code Style: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-An unofficial, modern, and type-safe Python SDK and API client wrapper for the **Hack The Box (HTB)** platform. This library exposes fully type-hinted synchronous and asynchronous interfaces to interact programmatically with HTB APIs.
+An unofficial, modern Python SDK and API client wrapper for the **Hack The Box (HTB)** platform. This library exposes synchronous and asynchronous interfaces with generated typed request and response models for interacting programmatically with HTB APIs.
 
 Whether you are automating machine status checking, managing teams, tracking starting point progression, or scripting challenge submissions, `pyhtb` provides a single unified interface.
+
+`pyhtb` is an independent project and is not affiliated with, endorsed by, or sponsored by Hack The Box.
 
 ---
 
 ## Key Features
 
-* **Complete API Coverage**: Seamlessly combines the HTB API `v4`, `v5`, and `experience/v1` specifications.
-* **Cookie-Simple Developer Experience**: No deep package imports or manually passing connection objects. Endpoints are dynamically bound directly onto the version clients.
-* **Modern Async & Sync Backend**: Powered by `httpx` for fast, lightweight HTTP execution with full async support out of the box.
-* **Type Safety & IDE Autocomplete**: Generated with strict model definitions utilizing `attrs` and type hints for robust code completion.
-* **Zero Overhead Boilerplate**: Authenticate once, and credentials automatically propagate across all supported API versions.
+* **Broad API coverage**: Clients generated from v4, v5, and Experience v1 specifications.
+* **Synchronous and asynchronous APIs**: Built on HTTPX.
+* **Typed data models**: Generated request and response models using attrs.
+* **Unified authentication**: Configure one token across supported API clients.
+* **Optional CLI**: Common machine, challenge, VPN, search, and profile workflows.
 
 ---
 
@@ -117,95 +119,100 @@ The SDK is compiled from official and community-maintained reverse-engineered Op
 
 ## CLI Tool (Proof of Concept)
 
-`pyhtb` ships with an experimental command-line interface that wraps the SDK into a quick-fire workflow tool. After installing the package, the `yahtbcli` command is available globally.
+`pyhtb` ships with an experimental command-line interface that wraps the SDK into a quick-fire workflow tool. After installing the package, the `pyhtb` command is available globally.
 
 ### Authentication
 
 ```bash
 # Store your HTB App Token (generates from app.hackthebox.com → Settings → App Tokens)
-yahtbcli auth set
-
-# Or pass it inline
-yahtbcli auth set --token eyJ...
+pyhtb auth set
 
 # Verify your credentials
-yahtbcli auth status
+pyhtb auth status
 
 # You can also export the token as an environment variable
 export HTB_TOKEN="eyJ..."
 ```
 
+Interactive token input is hidden. Environment variables take precedence over the stored token. If you store a token with `pyhtb auth set`, it is written as plaintext to `$XDG_CONFIG_HOME/pyhtb/token`, or `~/.config/pyhtb/token` when `XDG_CONFIG_HOME` is not set. On Unix-like systems, the token file is created with owner-only `0600` permissions.
+
 ### Machines
 
 ```bash
 # List active machines
-yahtbcli machine list
+pyhtb machine list
 
 # List retired machines, filtered by difficulty
-yahtbcli machine list --retired --difficulty hard --os linux
+pyhtb machine list --retired --difficulty hard --os linux
 
 # Show detailed info for a machine (by name or ID)
-yahtbcli machine info Checkpoint
+pyhtb machine info Checkpoint
 
 # Start a machine and wait for IP assignment
-yahtbcli machine start Checkpoint
+pyhtb machine start Checkpoint
 
 # Check your active machine
-yahtbcli machine active
+pyhtb machine active
 
 # Submit a flag
-yahtbcli machine own Checkpoint <flag>
+pyhtb machine own Checkpoint <flag>
 
 # Stop or reset the active machine
-yahtbcli machine stop
-yahtbcli machine reset
+pyhtb machine stop
+pyhtb machine reset
 ```
 
 ### Challenges
 
 ```bash
 # List challenges, optionally filtered by category
-yahtbcli challenge list --category Web --search void
+pyhtb challenge list --category Web --search void
 
 # Show challenge details (docker status, ports, etc.)
-yahtbcli challenge info spookifier
+pyhtb challenge info spookifier
 
 # Start/stop a Docker container (by name or ID)
-yahtbcli challenge start spookifier
-yahtbcli challenge stop spookifier
+pyhtb challenge start spookifier
+pyhtb challenge stop spookifier
 
 # Submit a flag
-yahtbcli challenge own spookifier <flag>
+pyhtb challenge own spookifier <flag>
 ```
 
 ### VPN
 
 ```bash
 # Check active VPN connections
-yahtbcli vpn status
+pyhtb vpn status
 
 # List available VPN servers
-yahtbcli vpn servers --pool labs
+pyhtb vpn servers --pool labs
 
 # Switch to a different VPN server
-yahtbcli vpn switch 113
+pyhtb vpn switch 113
 
 # Download an .ovpn config file
-yahtbcli vpn download 113 -o lab.ovpn
-yahtbcli vpn download 113 --tcp
+pyhtb vpn download 113 -o lab.ovpn
+pyhtb vpn download 113 --tcp
 ```
 
 ### Search & Profile
 
 ```bash
 # Global search across machines and challenges
-yahtbcli search void
+pyhtb search void
 
 # Display your authenticated profile
-yahtbcli whoami
+pyhtb whoami
 ```
 
-> **Note**: The CLI is a proof-of-concept companion to the SDK. It covers the most common workflows but does not expose every API endpoint. Use the SDK directly for full coverage.
+Commands exit with a nonzero status on failure (missing token, unresolved target, API errors, rejected flags), so they compose cleanly in scripts:
+
+```bash
+pyhtb machine own Checkpoint "$FLAG" && echo "owned!" || echo "submission failed"
+```
+
+> **Note**: The CLI is a proof-of-concept companion to the SDK. It covers the most common workflows but does not expose every API endpoint. Use the SDK directly for broader endpoint access.
 
 ---
 
