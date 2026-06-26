@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import re
 from pathlib import Path
 
 
@@ -40,6 +41,8 @@ SKIP_NAMES = {
     "errors",
     "quote",
 }
+
+TYPE_IMPORT_RE = re.compile(r"^from \.\.\.types import (?P<names>.+)$", re.MULTILINE)
 
 
 class RewriteNames(ast.NodeTransformer):
@@ -239,6 +242,31 @@ def dedupe(items: list[str]) -> list[str]:
     return result
 
 
+def patch_missing_unset_imports() -> None:
+    """Repair generated modules that reference Unset without importing it."""
+
+    for _, api_dir, _ in PACKAGES:
+        for path in sorted(api_dir.rglob("*.py")):
+            if path.name == "__init__.py":
+                continue
+
+            text = path.read_text()
+            if not re.search(r"\bUnset\b", text):
+                continue
+
+            match = TYPE_IMPORT_RE.search(text)
+            if match is None:
+                continue
+
+            names = [name.strip() for name in match.group("names").split(",")]
+            if "Unset" in names:
+                continue
+
+            names.append("Unset")
+            replacement = "from ...types import " + ", ".join(names)
+            path.write_text(text[: match.start()] + replacement + text[match.end() :])
+
+
 def collect_facade() -> tuple[list[str], list[str], dict[str, list[str]], dict[str, list[str]]]:
     type_imports = [
         "from typing import Any, Optional",
@@ -428,6 +456,7 @@ def build_stub() -> str:
 
 
 def main() -> None:
+    patch_missing_unset_imports()
     INIT_OUTPUT.write_text(build_runtime())
     STUB_OUTPUT.write_text(build_stub())
 

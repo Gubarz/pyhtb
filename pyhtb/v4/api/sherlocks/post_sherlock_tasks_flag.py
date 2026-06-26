@@ -10,7 +10,7 @@ from ...models.bad_request_error import BadRequestError
 from ...models.post_sherlock_tasks_flag_data_body import PostSherlockTasksFlagDataBody
 from ...models.post_sherlock_tasks_flag_json_body import PostSherlockTasksFlagJsonBody
 from ...models.task_flag_response import TaskFlagResponse
-from ...types import UNSET, Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(

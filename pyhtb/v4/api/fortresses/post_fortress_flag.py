@@ -9,7 +9,7 @@ from ...client import AuthenticatedClient, Client
 from ...models.own_machine_error_response import OwnMachineErrorResponse
 from ...models.post_fortress_flag_data_body import PostFortressFlagDataBody
 from ...models.post_fortress_flag_json_body import PostFortressFlagJsonBody
-from ...types import UNSET, Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
