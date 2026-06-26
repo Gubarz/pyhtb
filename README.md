@@ -218,13 +218,17 @@ pyhtb machine own Checkpoint "$FLAG" && echo "owned!" || echo "submission failed
 
 ## Code Regeneration
 
-The SDK contains a build pipeline to automatically compile clients from raw OpenAPI YAML specs. To regenerate the submodules after modifying any specification, execute:
+The SDK contains a build pipeline to automatically compile clients from raw OpenAPI YAML specs and refresh the generated public facade plus typing stub. To regenerate the submodules after modifying any specification, execute:
 
 ```bash
 ./api/regen.sh
 ```
 
-This requires `openapi-python-client` to be installed in your active Python environment.
+This requires the code generation extra:
+
+```bash
+python -m pip install -e '.[codegen]'
+```
 
 ---
 

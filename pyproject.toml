@@ -40,6 +40,7 @@ classifiers = [
 
 [project.optional-dependencies]
 test = ["pytest>=7.0"]
+codegen = ["openapi-python-client>=0.29.0"]
 
 [project.urls]
 Homepage = "https://github.com/Gubarz/pyhtb"
@@ -55,4 +56,4 @@ where = ["."]
 include = ["pyhtb*"]
 
 [tool.setuptools.package-data]
-pyhtb = ["py.typed"]
+pyhtb = ["py.typed", "*.pyi"]

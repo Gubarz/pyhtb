@@ -29,7 +29,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install build twine
-        python -m pip install -e .[test]
+        python -m pip install -e .[test,codegen]
 
     - name: Verify tag matches package version
       run: |
@@ -50,6 +50,11 @@ jobs:
 
     - name: Run tests
       run: python -m pytest -q
+
+    - name: Check generated client code
+      run: |
+        ./api/regen.sh
+        git diff --exit-code -- pyhtb
 
     - name: Build Package
       run: python -m build
