@@ -14,6 +14,7 @@ from ...types import Response
 def _get_kwargs(
     challenge_slug: str,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/challenge/info/{challenge_slug}".format(

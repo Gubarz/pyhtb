@@ -14,6 +14,7 @@ from ...types import Response
 def _get_kwargs(
     machine_id: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/machines/{machine_id}/adventure".format(

@@ -18,6 +18,7 @@ def _get_kwargs(
     user_id: int,
     target_id: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/user/achievement/{target_type}/{user_id}/{target_id}".format(

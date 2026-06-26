@@ -23,6 +23,7 @@ def _get_kwargs(
     *,
     period: GetSeasonLeaderboardTopPeriod = GetSeasonLeaderboardTopPeriod.VALUE_4,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     json_period = period.value

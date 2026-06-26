@@ -13,6 +13,7 @@ from ...types import Response
 def _get_kwargs(
     request_id: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": "/team/{request_id}/invite/reject".format(

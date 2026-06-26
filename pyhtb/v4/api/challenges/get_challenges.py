@@ -29,6 +29,7 @@ def _get_kwargs(
     category: list[int] | Unset = UNSET,
     todo: GetChallengesTodo | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["page"] = page

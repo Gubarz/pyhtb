@@ -14,6 +14,7 @@ from ...types import File, Response
 def _get_kwargs(
     vpn_id: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/access/ovpnfile/{vpn_id}/0".format(

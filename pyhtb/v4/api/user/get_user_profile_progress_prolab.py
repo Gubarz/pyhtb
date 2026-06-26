@@ -14,6 +14,7 @@ from ...types import Response
 def _get_kwargs(
     user_id: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/user/profile/progress/prolab/{user_id}".format(

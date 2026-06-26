@@ -16,6 +16,7 @@ def _get_kwargs(
     query: str,
     tags: list[GetSearchFetchTagsItem] | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["query"] = query

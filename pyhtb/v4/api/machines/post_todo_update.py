@@ -16,6 +16,7 @@ def _get_kwargs(
     product: PostTodoUpdateProduct,
     product_id: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/{product}/todo/update/{product_id}".format(

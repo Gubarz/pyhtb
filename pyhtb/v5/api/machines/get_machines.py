@@ -34,6 +34,7 @@ def _get_kwargs(
     todo: GetMachinesTodo | Unset = UNSET,
     sp_tier: GetMachinesSpTier | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["per_page"] = per_page

@@ -16,6 +16,7 @@ def _get_kwargs(
     product: GetReviewPaginatedProduct,
     product_id: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/review/{product}/{product_id}/paginated".format(

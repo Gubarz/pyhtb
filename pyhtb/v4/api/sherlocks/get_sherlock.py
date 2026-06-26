@@ -13,6 +13,7 @@ from ...types import Response
 def _get_kwargs(
     sherlock_slug: str,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/sherlocks/{sherlock_slug}".format(

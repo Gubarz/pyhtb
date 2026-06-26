@@ -16,6 +16,7 @@ def _get_kwargs(
     *,
     rare: int | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["rare"] = rare

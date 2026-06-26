@@ -19,6 +19,7 @@ def _get_kwargs(
     per_page: int | Unset = UNSET,
     page: int | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     json_type_ = type_.value

@@ -15,6 +15,7 @@ def _get_kwargs(
     *,
     product: GetConnectionsServersProduct,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     json_product = product.value
