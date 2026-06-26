@@ -7,7 +7,7 @@ name = "pyhtb"
 version = "0.1.3"
 description = "Unofficial Hack The Box Python SDK"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = "Unlicense"
 keywords = [
     "hackthebox",
